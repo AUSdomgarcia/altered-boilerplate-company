@@ -145,7 +145,8 @@ gulp.task('sprites', function() {
     var globalSprites = gulp.src('app/img/sprites/*.png').pipe(spritesmith({
             imgName: 'sprites.png',
             cssName: '_sprites.css',
-            imgPath: '../img/sprites.png'
+            imgPath: '../img/sprites.png',
+            padding: 5
         })),
         cssGlobal = globalSprites.css.pipe(gulp.dest('app/sass/base')),
         imgGlobal = globalSprites.img.pipe(gulp.dest('app/img/'));
