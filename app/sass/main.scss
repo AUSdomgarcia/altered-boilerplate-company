@@ -111,25 +111,6 @@ body {
   }
 }
 
-/* Sprites */
-.sprite {
-  display: inline-block;
-  vertical-align: top;
-
-  &.sprite-camera {
-    @include sprite($camera);
-  }
-
-  &.sprite-landscape {
-    @include sprite($landscape);
-  }
-
-  &.sprite-picture {
-    @include sprite($picture);
-  }
-
-}
-
 
 
 /* Responsive: Portrait tablets and up */
