@@ -1,8 +1,7 @@
 $icon-font-path: '../fonts/';
 
 
-/*----- VENDORS-------
-----------------------*/
+/*----- VENDORS-------*/
 
     // bower:scss
     @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
@@ -10,42 +9,31 @@ $icon-font-path: '../fonts/';
     // endbower
 
 
-/*----- FONTS-------
-----------------------*/
+/*----- FONTS-------*/
 @import "base/fonts";
 
-/*-----VARIABLES----
------------------------*/
+/*-----VARIABLES----*/
 @import "base/variables";
 
 
-/*-----MIX-INS AND PLACEHOLDER -------
------------------------*/
+/*-----MIX-INS AND PLACEHOLDER -------*/
 @import "base/mixins";
-@import "base/placeholders";
 
 
-/*-----SPRITES-------
------------------------*/
+/*-----SPRITES-------*/
 @import "base/sprites";
 
 
 
-/*-----LAYOUTS-------
------------------------*/
+/*-----LAYOUTS-------*/
 @import "layouts/header";
 @import "layouts/footer";
 @import "layouts/body";
 
-/*-----MODULES-------
------------------------*/
-
-/*-----GLOBALS--------
---------------------------*/
+/*-----GLOBALS--------*/
 @import "base/globals";
 
-/*-----PAGES-------
------------------------*/
+/*-----PAGES-------*/
 @import "pages/home";
 
 .browserupgrade {
