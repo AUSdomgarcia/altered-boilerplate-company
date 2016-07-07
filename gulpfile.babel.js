@@ -2,6 +2,7 @@
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
+// import useref from 'gulp-useref';
 import del from 'del';
 import spritesmith from 'gulp.spritesmith';
 import merge from 'merge-stream';
@@ -9,7 +10,19 @@ import fileInclude from 'gulp-file-include';
 import { stream as wiredep } from 'wiredep';
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
+var header = require('gulp-header');
 var pkg = require('./package.json');
+var banner = [
+    '/*!\n' +
+    ' * <%= pkg.title %>\n' +
+    ' * <%= pkg.description %>\n' +
+    ' * <%= pkg.url %>\n' +
+    ' * @author <%= pkg.author %>\n' +
+    ' * @version <%= pkg.version %>\n' +
+    ' * Copyright ' + new Date().getFullYear() + '. <%= pkg.license %> licensed.\n' +
+    ' */',
+    '\n'
+].join('');
 
 gulp.task('styles', () => {
     return gulp.src('app/sass/*.scss')
@@ -92,19 +105,15 @@ gulp.task('lint', lint('app/js/**/*.js'));
 gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 
 gulp.task('html', ['styles'], () => {
-    const assets = $.useref.assets({
-        searchPath: ['.tmp', 'app', '.']
-    });
 
     return gulp.src('app/*.html')
-        .pipe(assets)
         .pipe($.if('*.js', $.uglify()))
         .pipe($.if('*.css', $.minifyCss({
             compatibility: '*'
         })))
-        .pipe(assets.restore())
-        .pipe($.useref())
+        .pipe($.useref({ searchPath: ['.tmp', 'app', '.'] }))
         .pipe(gulp.dest('dist'));
+
 });
 
 gulp.task('images', () => {
@@ -246,13 +255,12 @@ gulp.task('wiredep', () => {
         .pipe(gulp.dest('app/tpl/global'));
 });
 
-gulp.task('build', ['clean', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['html', 'images', 'fonts', 'extras'], () => {
     return gulp.src('dist/**/*').pipe($.size({
         title: 'build',
         gzip: true
     }));
 });
-
 
 gulp.task('build:angular', ['lint', 'html', 'images', 'fonts', 'extras', 'views'], () => {
     return gulp.src('dist/**/*').pipe($.size({
