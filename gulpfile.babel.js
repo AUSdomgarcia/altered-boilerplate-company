@@ -2,7 +2,7 @@
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
-// import useref from 'gulp-useref';
+import useref from 'gulp-useref';
 import del from 'del';
 import spritesmith from 'gulp.spritesmith';
 import merge from 'merge-stream';
@@ -10,19 +10,11 @@ import fileInclude from 'gulp-file-include';
 import { stream as wiredep } from 'wiredep';
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
-var header = require('gulp-header');
 var pkg = require('./package.json');
-var banner = [
-    '/*!\n' +
-    ' * <%= pkg.title %>\n' +
-    ' * <%= pkg.description %>\n' +
-    ' * <%= pkg.url %>\n' +
-    ' * @author <%= pkg.author %>\n' +
-    ' * @version <%= pkg.version %>\n' +
-    ' * Copyright ' + new Date().getFullYear() + '. <%= pkg.license %> licensed.\n' +
-    ' */',
-    '\n'
-].join('');
+
+gulp.task('debug', () => {
+  console.log($);
+});
 
 gulp.task('styles', () => {
     return gulp.src('app/sass/*.scss')
@@ -44,17 +36,6 @@ gulp.task('styles', () => {
     }));
 });
 
-var banner = [
-    '/*!\n' +
-    ' * <%= pkg.title %>\n' +
-    ' * <%= pkg.description %>\n' +
-    ' * <%= pkg.url %>\n' +
-    ' * @author <%= pkg.author %>\n' +
-    ' * @version <%= pkg.version %>\n' +
-    ' * Copyright ' + new Date().getFullYear() + '. <%= pkg.license %> licensed.\n' +
-    ' */',
-    '\n'
-].join('');
 
 gulp.task('fileinclude', () => {
     gulp.src('app/tpl/*.html')
@@ -104,14 +85,12 @@ const testLintOptions = {
 gulp.task('lint', lint('app/js/**/*.js'));
 gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 
-gulp.task('html', ['styles'], () => {
+gulp.task('html', ['styles', 'uncss'], () => {
 
     return gulp.src('app/*.html')
+        .pipe($.useref({searchPath: ['.tmp', 'app', '.']}))
         .pipe($.if('*.js', $.uglify()))
-        .pipe($.if('*.css', $.minifyCss({
-            compatibility: '*'
-        })))
-        .pipe($.useref({ searchPath: ['.tmp', 'app', '.'] }))
+        .pipe($.if('*.css', $.cleanCss({compatibility: '*'})))
         .pipe(gulp.dest('dist'));
 
 });
@@ -133,6 +112,7 @@ gulp.task('images', () => {
             })))
         .pipe(gulp.dest('dist/img'));
 });
+
 
 
 gulp.task('sprites', function() {
