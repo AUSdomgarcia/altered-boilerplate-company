@@ -43,7 +43,8 @@ gulp.task('fileinclude', () => {
             prefix: '@@',
             basepath: '@file'
         }))
-        .pipe(gulp.dest('app/'));
+        .pipe(gulp.dest('app/'))
+        .pipe(browserSync.stream());
 });
 
 gulp.task('uncss', function() {
@@ -183,10 +184,6 @@ gulp.task('serve', ['styles', 'fonts'], () => {
 
     gulp.watch('app/**/*').on('change',reload);
 
-
-
-
-
 });
 
 gulp.task('serve:dist', () => {
@@ -235,7 +232,7 @@ gulp.task('wiredep', () => {
         .pipe(gulp.dest('app/tpl/global'));
 });
 
-gulp.task('build', ['html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
     return gulp.src('dist/**/*').pipe($.size({
         title: 'build',
         gzip: true

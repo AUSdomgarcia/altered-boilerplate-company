@@ -39,19 +39,6 @@
     "opn": "^4.0.2",
     "wiredep": "^4.0.0"
   },
-  "eslintConfig": {
-    "env": {
-      "node": true,
-      "browser": true,
-      "jquery": true
-    },
-    "rules": {
-      "quotes": [
-        2,
-        "single"
-      ]
-    }
-  },
   "babel": {
     "presets": [
       "es2015"
