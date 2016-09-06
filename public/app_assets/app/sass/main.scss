@@ -6,27 +6,30 @@
     // endbower
 
 
-/* VARIABLES */
+/* Variables */
 @import "base/variables";
 
-/* FONTS */
+/* Fonts */
 @import "base/fonts";
 
-/* MIX-INS AND PLACEHOLDER */
+/* Mixins */
 @import "base/mixins";
 
-/* SPRITES */
+/* Sprites */
 @import "base/sprites";
 
-/* LAYOUTS */
+/* Components */
+@import "components/*";
+
+/* Global Styles */
+@import "base/globals";
+
+/* Layouts */
 @import "layouts/header";
 @import "layouts/footer";
 @import "layouts/body";
 
-/* GLOBALS */
-@import "base/globals";
-
-/* PAGES */
+/* Pages */
 @import "pages/home";
 
 .browserupgrade {
