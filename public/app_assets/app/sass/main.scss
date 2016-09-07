@@ -23,11 +23,8 @@
 
 /* Global Styles */
 @import "base/globals";
-
-/* Layouts */
-@import "layouts/header";
-@import "layouts/footer";
-@import "layouts/body";
+@import "base/header";
+@import "base/footer";
 
 /* Pages */
 @import "pages/home";
