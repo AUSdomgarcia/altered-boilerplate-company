@@ -125,9 +125,7 @@ gulp.task('sprites', function() {
         })),
         cssGlobal = globalSprites.css.pipe(gulp.dest('app/sass/base')),
         imgGlobal = globalSprites.img.pipe(gulp.dest('app/img/'));
-
     return merge(cssGlobal, imgGlobal);
-
 });
 
 
